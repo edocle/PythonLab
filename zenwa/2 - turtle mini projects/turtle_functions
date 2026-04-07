@@ -1,0 +1,45 @@
+from turtle import *
+
+def draw_circle(radius, color_name):
+    penup()
+    right(90)
+    forward(radius)
+    left(90)
+    pendown()
+    color(color_name)
+    begin_fill()   
+    circle(radius)
+    end_fill()
+    penup()
+
+    left(90)
+    forward(radius)
+    right(90)
+    pendown()
+
+def draw_square(size, color_name):
+    penup()
+    left(135)
+    forward(size * (2 ** 0.5) / 2)
+    right(135)
+    pendown()
+    color(color_name)
+    begin_fill()
+    for i in range(4):
+        forward(size)
+        right(90)
+    end_fill()
+
+planet1_size = 50
+planet1_color = 'blue'
+
+planet2_size = 30
+planet2_color = 'grey'
+
+goto(0,0)
+draw_circle(planet1_size, planet1_color)
+goto(0,50)
+draw_circle(planet2_size, planet2_color)
+goto(0,100)
+draw_square(20, 'green')
+done()
