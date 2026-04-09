@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ app_name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <body>
+    <main class="container">
+      <h1>{{ app_name }}</h1>
+      <p class="hint">Upload up to {{ max_files }} images, resize, preview, and download.</p>
+
+      <form method="post" enctype="multipart/form-data" class="card">
+        <label>Images (PNG/JPG/JPEG, up to {{ max_files }})</label>
+        <input type="file" name="images" accept=".png,.jpg,.jpeg" multiple required>
+
+        <div class="row">
+          <div>
+            <label>Width</label>
+            <input type="number" name="width" min="1" value="{{ form_values.width }}" required>
+          </div>
+          <div>
+            <label>Height</label>
+            <input type="number" name="height" min="1" value="{{ form_values.height }}" required>
+          </div>
+          <div>
+            <label>Quality (1-95)</label>
+            <input type="number" name="quality" min="1" max="95" value="{{ form_values.quality }}" required>
+          </div>
+        </div>
+
+        <button type="submit">Resize Images</button>
+      </form>
+
+      {% if error %}
+        <p class="error">{{ error }}</p>
+      {% endif %}
+
+      {% if results %}
+        <section class="results">
+          {% for item in results %}
+            <article class="card result-item">
+              <h3>{{ item.original_name }}</h3>
+              <img src="{{ item.preview_url }}" alt="Preview of {{ item.original_name }}">
+              <a href="{{ item.download_url }}">Download</a>
+            </article>
+          {% endfor %}
+        </section>
+      {% endif %}
+    </main>
+  </body>
+</html>
