@@ -4,7 +4,7 @@
 
 body {
   margin: 0;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Roboto", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background:
     radial-gradient(circle at 15% 20%, rgba(122, 0, 255, 0.3), transparent 35%),
     radial-gradient(circle at 85% 15%, rgba(0, 225, 255, 0.25), transparent 30%),
@@ -18,6 +18,17 @@ body {
   max-width: 960px;
   margin: 0 auto;
   padding: 1.5rem;
+}
+
+.site-header {
+  border-bottom: 1px solid rgba(122, 148, 255, 0.25);
+  background: rgba(7, 11, 28, 0.6);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+}
+
+.header-inner {
+  padding-top: 1.35rem;
+  padding-bottom: 1rem;
 }
 
 h1 {
@@ -52,7 +63,9 @@ label {
 }
 
 input[type="file"],
-input[type="number"] {
+input[type="number"],
+input[type="text"],
+select {
   width: 100%;
   padding: 0.55rem;
   border: 1px solid rgba(123, 141, 255, 0.48);
@@ -74,7 +87,9 @@ input[type="file"]::file-selector-button {
 }
 
 input[type="file"]:focus,
-input[type="number"]:focus {
+input[type="number"]:focus,
+input[type="text"]:focus,
+select:focus {
   border-color: #46f6ff;
   box-shadow: 0 0 0 3px rgba(70, 246, 255, 0.18);
 }
@@ -83,6 +98,38 @@ input[type="number"]:focus {
   display: grid;
   gap: 0.9rem;
   grid-template-columns: repeat(3, 1fr);
+}
+
+.checkline {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 0.9rem;
+  color: #d8dcff;
+  font-weight: 600;
+}
+
+.checkline input[type="checkbox"] {
+  width: 1.1rem;
+  height: 1.1rem;
+  accent-color: #39efff;
+}
+
+input[type="color"] {
+  width: 100%;
+  height: 2.25rem;
+  border: 1px solid rgba(123, 141, 255, 0.48);
+  border-radius: 8px;
+  background: rgba(8, 12, 30, 0.72);
+  padding: 0.2rem;
+  margin-bottom: 0.8rem;
+}
+
+.watermark-card {
+  border-color: rgba(0, 219, 255, 0.45);
+  box-shadow:
+    0 0 0 1px rgba(85, 238, 255, 0.14) inset,
+    0 12px 28px rgba(0, 0, 0, 0.3);
 }
 
 button,
@@ -146,6 +193,23 @@ a:hover {
   margin-bottom: 0.6rem;
   border: 1px solid rgba(125, 143, 255, 0.45);
   box-shadow: 0 0 20px rgba(58, 208, 255, 0.2);
+}
+
+.site-footer {
+  margin-top: 1rem;
+  border-top: 1px solid rgba(122, 148, 255, 0.25);
+  background: rgba(7, 11, 28, 0.62);
+}
+
+.footer-inner {
+  padding-top: 0.8rem;
+  padding-bottom: 1rem;
+}
+
+.footer-inner p {
+  margin: 0;
+  color: #afbbdf;
+  font-size: 0.92rem;
 }
 
 @media (max-width: 720px) {
