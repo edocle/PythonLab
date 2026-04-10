@@ -34,7 +34,7 @@ Add optional mirrored function
 Now please finalize and create a readme.md file
 
 # Ask mode #
-I want to add a new feture: watermarks. what do you thhink ?
+I want to add a new feature: watermarks. what do you think ?
 Can you create a plan for this, like properties, or ability to add custom texts written by the user ?
 
 # Agent mode again # Add App.py into the prompt #
