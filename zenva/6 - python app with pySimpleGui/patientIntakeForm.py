@@ -1,4 +1,5 @@
 import FreeSimpleGUI as sg
+import dataFunctions
 
 
 def create_layout():
@@ -19,11 +20,15 @@ def display_intake_form():
         event, values = intake_window.read()
         if event == sg.WIN_CLOSED or event == "Cancel":
             intake_window.close()
-            break
+            return False
 
         elif event == "SUBMIT":
-            intake_window.close()
-            return read_input_values(values)
+            values = read_input_values(values)
+            if dataFunctions.try_to_create_patient(values):
+                intake_window.close()
+                return True
+            else:
+                print("Error creating patient. Please check the input values and try again.")
 
 def read_input_values(values):
     first_name = values["FIRST_NAME"]

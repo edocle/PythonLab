@@ -17,8 +17,7 @@ def main():
     patients_window.close()
 
 def press_add_new_patient(patients_window):
-    values = patientIntakeForm.display_intake_form()
-    if dataFunctions.try_to_create_patient(values):
+    if patientIntakeForm.display_intake_form():
         patients_window["PATIENTS_TABLE"].update(values=dataFunctions.convert_patients_to_table_data())
 
 table_headings = ["First Name", "Last Name", "Date of Birth", "Height (cm)", "Weight (kg)", "takes medication"]
