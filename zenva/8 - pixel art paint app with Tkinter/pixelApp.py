@@ -1,17 +1,19 @@
 from tkinter import *
 import tkinter.colorchooser
 
+from PIL import ImageGrab
+from datetime import datetime
+
 class PixelApp:
     def __init__(self, root):
         self.root = root
         self.root.title("Pixel Art Paint")
 
         # parameters
-        self.current_color = "black"
         cell_length = 20
         grid_width = 32
         grid_height = 18
-        self.is_pen_selected = False
+        self.current_color = "black"
         self.is_eraser_selected = False
 
         # structure setup
@@ -21,13 +23,11 @@ class PixelApp:
         # structure: canvas
         self.cells = []
         for i in range(grid_width):
-            row = []
             for j in range(grid_height):
                 cell = Frame(self.canvas, width=cell_length, height=cell_length, bg="white")
                 cell.grid(column=i, row=j)
                 cell.bind("<Button-1>", self.tap_cell)
-                row.append(cell)
-            self.cells.append(row)
+                self.cells.append(cell)
 
         # structure: controls
         control_frame = Frame(self.root, height=cell_length)
@@ -62,12 +62,14 @@ class PixelApp:
             control_frame.grid_rowconfigure(row, minsize=cell_length)
 
     def tap_cell(self, event):
-        x = event.x
-        y = event.y
-        cell_x = x // 50
-        cell_y = y // 50
-        print("Tapped at", event.x, event.y, "-> cell", cell_x, cell_y)
-        self.cells[cell_x][cell_y].config(bg=self.current_color)
+        widget = event.widget
+        index = self.cells.index(widget)
+        selected_cell = self.cells[index]
+        
+        if (self.is_eraser_selected):
+            selected_cell["bg"] = "white"
+        else:
+            selected_cell["bg"] = self.current_color
 
     def paint(self, event):
         x = event.x
@@ -79,17 +81,25 @@ class PixelApp:
         self.selected_colour_box["bg"] = self.current_color
 
     def new_canvas(self):
-        print("New canvas...")
+        for cell in self.cells:
+            cell["bg"] = "white"
+        self.define_color("black")
+        self.is_eraser_selected = False
 
     def save_canvas(self):
-        print("Saving canvas...")
-        
+        x = self.root.winfo_rootx() + self.canvas.winfo_x()
+        y = self.root.winfo_rooty() + self.canvas.winfo_y()
+        width = x + self.canvas.winfo_width()
+        height = y + self.canvas.winfo_height()
+        image = ImageGrab.grab(bbox=(x, y, width, height))
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        image.save(f"pixel_art_{timestamp}.png")
+        print(f"Canvas saved as pixel_art_{timestamp}.png")
+
     def press_prencil_button(self):
-        self.is_pen_selected = True
         self.is_eraser_selected = False
 
     def press_eraser_button(self):
-        self.is_pen_selected = False
         self.is_eraser_selected = True
 
     def pick_color(self):
